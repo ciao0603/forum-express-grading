@@ -23,10 +23,13 @@ const restaurantController = {
       Category.findAll({ raw: true })
     ])
       .then(([restaurants, categories]) => {
+        const favoriteRestaurantsId = req.user && req.user.FavoriteRestaurants.map(fr => fr.id) // 假如 req.user 有 value 才會執行 && 後面的程式碼
         const data = restaurants.rows.map(r => ({
           ...r,
-          description: r.description.substring(0, 50)
+          description: r.description.substring(0, 50),
+          isFavorite: favoriteRestaurantsId.includes(r.id) // boolean
         }))
+
         return res.render('restaurants', {
           restaurants: data,
           categories,
