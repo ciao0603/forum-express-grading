@@ -24,10 +24,12 @@ const restaurantController = {
     ])
       .then(([restaurants, categories]) => {
         const favoriteRestaurantsId = req.user && req.user.FavoriteRestaurants.map(fr => fr.id) // 假如 req.user 有 value 才會執行 && 後面的程式碼
+        const likeRestaurantsId = req.user && req.user.LikeRestaurants.map(lr => lr.id)
         const data = restaurants.rows.map(r => ({
           ...r,
           description: r.description.substring(0, 50),
-          isFavorite: favoriteRestaurantsId.includes(r.id) // boolean
+          isFavorite: favoriteRestaurantsId.includes(r.id),
+          isLike: likeRestaurantsId.includes(r.id)
         }))
 
         return res.render('restaurants', {
