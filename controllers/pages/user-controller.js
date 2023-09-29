@@ -1,4 +1,4 @@
-const { Restaurant, User, Favorite, Like } = require('../models')
+const { Restaurant, User, Favorite, Like } = require('../../models')
 const bcrypt = require('bcryptjs')
 
 const userController = {
